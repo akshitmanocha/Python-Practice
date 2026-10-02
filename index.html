@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeetCode | Python DSA & ML Studio</title>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CodeMirror 5 (Editor + Dracula Theme + Python Mode) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+
+  <!-- LeetCode Theme Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       LeetCode Top Navigation Bar
+       ====================================================================== -->
+  <header class="lc-navbar">
+    <div class="lc-nav-left">
+      <!-- LeetCode Logo -->
+      <a class="lc-logo" id="logo-btn" title="LeetCode Python Practice">
+        <svg class="lc-logo-icon" viewBox="0 0 24 24" fill="none">
+          <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 4.818 3.822 5.874 5.874 0 0 0 2.772-.349 5.266 5.266 0 0 0 2.115-1.209l3.854-4.126 1.48-1.583a1.374 1.374 0 0 0-.96-2.35h-7.85a.916.916 0 0 1-.917-.916.916.916 0 0 1 .917-.917h11.233c.489 0 .937.26 1.176.678.239.418.239.938 0 1.356l-3.568 6.183a8.618 8.618 0 0 1-3.48 3.48 8.688 8.688 0 0 1-4.088.999 8.788 8.788 0 0 1-7.143-5.666 8.18 8.18 0 0 1-.518-1.503 8.167 8.167 0 0 1-.092-3.498 7.79 7.79 0 0 1 1.789-3.115l5.706-6.108 4.405-4.717A1.374 1.374 0 0 0 13.483 0z" fill="#FFA116"/>
+          <path d="M20.73 11.25H9.68a.917.917 0 0 0 0 1.834h11.05a.917.917 0 0 0 0-1.834z" fill="#FFFFFF"/>
+        </svg>
+      </a>
+
+      <!-- Problem List Dropdown Button -->
+      <button class="lc-problem-list-btn" id="problem-list-btn" title="Open Problem List (⌘K)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        <span>Problem List</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+
+      <!-- Prev / Next Steppers -->
+      <div class="lc-nav-prev-next">
+        <button class="lc-icon-btn" id="nav-prev-btn" title="Previous Question">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="lc-icon-btn" id="nav-next-btn" title="Next Question">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+      <!-- Track Switcher -->
+      <div class="lc-track-selector">
+        <button class="lc-track-tab active" data-track="dsa">
+          <span>Track 1: DSA (Striver)</span>
+          <span class="lc-pill-num">39</span>
+        </button>
+        <button class="lc-track-tab" data-track="theory">
+          <span>Track 2: OA Theory</span>
+          <span class="lc-pill-num">15</span>
+        </button>
+        <button class="lc-track-tab" data-track="datascience">
+          <span>Track 3: ML & Data Science</span>
+          <span class="lc-pill-num">41</span>
+        </button>
+        <button class="lc-track-tab" data-track="projects">
+          <span>Track 4: Projects ⏱</span>
+          <span class="lc-pill-num">4</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Controls: Run & Submit -->
+    <div class="lc-nav-right">
+      <div class="lc-timer-pill" id="lc-timer-pill" style="display: none;" title="Project OA Countdown Timer">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span id="timer-display">45:00</span>
+      </div>
+
+      <div class="lc-engine-status">
+        <div class="lc-status-dot" id="status-dot"></div>
+        <span id="status-text">Python 3.11</span>
+      </div>
+
+      <button class="lc-btn-run" id="run-code-btn" title="Run code (⌘+Enter)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <span>Run</span>
+      </button>
+
+      <button class="lc-btn-submit" id="submit-code-btn" title="Submit Solution">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Submit</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       Main Workspace: Split Panes
+       ====================================================================== -->
+  <main class="lc-workspace">
+
+    <!-- Left Pane: Problem Description / C++ Bridge / Solutions -->
+    <section class="lc-pane-left">
+      <!-- Tabs Header -->
+      <div class="lc-tabs-header">
+        <button class="lc-tab active" data-tab-target="desc">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span>Description</span>
+        </button>
+
+        <button class="lc-tab" data-tab-target="bridge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+          <span>C++ Bridge & Theory</span>
+          <span class="lc-tab-badge">Cheat</span>
+        </button>
+
+        <button class="lc-tab" data-tab-target="solution">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span>Editorial & Solution</span>
+        </button>
+      </div>
+
+      <!-- Tab Contents Container -->
+      <div class="lc-tab-content-area">
+        <!-- Tab 1: Description -->
+        <div class="lc-tab-content active" id="tab-content-desc">
+          <div class="lc-problem-title-header">
+            <h1 class="lc-problem-title" id="lc-title">Loading...</h1>
+            <div class="lc-meta-row" id="lc-meta-row"></div>
+          </div>
+          <div class="lc-problem-text" id="lc-desc-body"></div>
+          <div id="lc-examples-container"></div>
+          <div class="lc-constraints-box" id="lc-constraints-box">
+            <h4>Constraints:</h4>
+            <ul id="lc-constraints-list">
+              <li>Memory Limit: O(1) in-browser execution</li>
+              <li>Python 3.11 Runtime</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tab 2: C++ Bridge & Theory -->
+        <div class="lc-tab-content" id="tab-content-bridge">
+          <div id="lc-bridge-body"></div>
+        </div>
+
+        <!-- Tab 3: Solution (Revealed on click) -->
+        <div class="lc-tab-content" id="tab-content-solution">
+          <div id="lc-solution-body"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Pane: CodeMirror Editor & Console Drawer -->
+    <section class="lc-pane-right">
+      <!-- Editor Top Bar -->
+      <div class="lc-editor-header">
+        <div class="lc-lang-select">
+          <span>Python3</span>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+
+        <div class="lc-editor-actions">
+          <button class="lc-icon-btn" id="reset-code-btn" title="Reset to Starter Code">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- CodeMirror Mount Area -->
+      <div class="lc-editor-wrapper">
+        <textarea id="code-editor"></textarea>
+      </div>
+
+      <!-- Bottom Console Drawer -->
+      <div class="lc-console-drawer" id="lc-console-drawer">
+        <div class="lc-console-header">
+          <div class="lc-console-tabs">
+            <button class="lc-console-tab active" data-console-tab="testcase">Testcase</button>
+            <button class="lc-console-tab" data-console-tab="result">Test Result</button>
+          </div>
+
+          <div style="font-size: 11px; color: var(--lc-text-muted);" id="lc-runtime-badge"></div>
+        </div>
+
+        <div class="lc-console-body" id="lc-console-body">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================================================================
+       Slide-in Problem List Drawer (LeetCode Style)
+       ====================================================================== -->
+  <div class="lc-drawer-overlay" id="problem-list-drawer">
+    <div class="lc-drawer-panel">
+      <div class="lc-drawer-header">
+        <span style="font-weight: 700; font-size: 15px; color: #ffffff;">Problem List</span>
+        <button class="lc-icon-btn" id="close-drawer-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="lc-drawer-search">
+        <input type="text" class="lc-drawer-input" id="drawer-search-input" placeholder="Search questions (⌘K)...">
+      </div>
+
+      <div class="lc-drawer-list" id="drawer-list-container">
+        <!-- Rendered by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts: CodeMirror & Pyodide -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+
+  <!-- Application Modules -->
+  <script src="js/data/ds-registry.js"></script>
+  <script src="js/data/track1-dsa.js"></script>
+  <script src="js/data/track2-theory.js"></script>
+  <script src="js/data/track3-datascience.js"></script>
+  <script src="js/data/track4-projects.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/pyodide-runner.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
